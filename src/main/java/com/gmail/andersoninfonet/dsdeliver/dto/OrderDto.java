@@ -1,54 +1,39 @@
-package com.gmail.andersoninfonet.dsdeliver.model;
+package com.gmail.andersoninfonet.dsdeliver.dto;
+
+import com.gmail.andersoninfonet.dsdeliver.model.Order;
+import com.gmail.andersoninfonet.dsdeliver.model.OrderStatus;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * <p>Order class.</p>
+ * <p>OrderDto class.</p>
  *
  * @author andysteel
  * @version 1.0.0
  * @since 1.0.0
  */
-@Entity
-@Table(name = "tb_order")
-public class Order implements Serializable {
+public class OrderDto implements Serializable {
 
-  private static final long serialVersionUID = -478333509809767342L;
-
-  @Id
-  @GeneratedValue(strategy  = GenerationType.IDENTITY)
   private Long id;
   private String address;
   private Double latitude;
   private Double longitude;
   private Instant timestamp;
   private OrderStatus status;
-
-  @ManyToMany
-  @JoinTable(name = "tb_order_product",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-  private Set<Product> products = new HashSet<>();
+  private List<ProductDto> products = new ArrayList<>();
 
   /**
-   * <p>Constructor for Order.</p>
+   * <p>Constructor for OrderDto.</p>
    */
-  public Order() {
+  public OrderDto() {
   }
 
   /**
-   * <p>Constructor for Order.</p>
+   * <p>Constructor for OrderDto.</p>
    *
    * @param id a {@link java.lang.Long} object.
    * @param address a {@link java.lang.String} object.
@@ -57,7 +42,7 @@ public class Order implements Serializable {
    * @param timestamp a {@link java.time.Instant} object.
    * @param status a {@link com.gmail.andersoninfonet.dsdeliver.model.OrderStatus} object.
    */
-  public Order(Long id, String address, Double latitude,
+  public OrderDto(Long id, String address, Double latitude,
       Double longitude, Instant timestamp, OrderStatus status) {
     this.id = id;
     this.address = address;
@@ -65,6 +50,22 @@ public class Order implements Serializable {
     this.longitude = longitude;
     this.timestamp = timestamp;
     this.status = status;
+  }
+
+  /**
+   * <p>Constructor for OrderDto.</p>
+   *
+   * @param entity a {@link com.gmail.andersoninfonet.dsdeliver.model.Order} object.
+   */
+  public OrderDto(Order entity) {
+    this.id = entity.getId();
+    this.address = entity.getAddress();
+    this.latitude = entity.getLatitude();
+    this.longitude = entity.getLongitude();
+    this.timestamp = entity.getTimestamp();
+    this.status = entity.getStatus();
+    this.products = entity.getProducts().stream()
+                    .map(ProductDto::new).collect(Collectors.toList());
   }
 
   /**
@@ -178,36 +179,10 @@ public class Order implements Serializable {
   /**
    * <p>Getter for the field <code>products</code>.</p>
    *
-   * @return a {@link java.util.Set} object.
+   * @return a {@link java.util.List} object.
    */
-  public Set<Product> getProducts() {
+  public List<ProductDto> getProducts() {
     return products;
   }
 
-  /** {@inheritDoc} */
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    return result;
-  }
-
-  /** {@inheritDoc} */
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Order other = (Order) obj;
-    if (id == null) {
-      if (other.id != null)
-        return false;
-    } else if (!id.equals(other.id))
-      return false;
-    return true;
-  }
 }
