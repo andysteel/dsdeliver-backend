@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * @since 1.0.0
  */
 @Entity
-@Table(name = "tb_product")
+@Table(name = "tb_product", schema = "dsdeliver")
 public class Product implements Serializable {
 
   private static final long serialVersionUID = 9204629385894926640L;

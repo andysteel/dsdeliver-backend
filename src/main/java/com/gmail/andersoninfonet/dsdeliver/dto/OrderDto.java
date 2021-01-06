@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
  */
 public class OrderDto implements Serializable {
 
+  private static final long serialVersionUID = -2874620129493830679L;
+
   private Long id;
   private String address;
   private Double latitude;

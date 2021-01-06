@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * @since 1.0.0
  */
 @Entity
-@Table(name = "tb_order")
+@Table(name = "tb_order", schema = "dsdeliver")
 public class Order implements Serializable {
 
   private static final long serialVersionUID = -478333509809767342L;
@@ -36,7 +36,7 @@ public class Order implements Serializable {
   private OrderStatus status;
 
   @ManyToMany
-  @JoinTable(name = "tb_order_product",
+  @JoinTable(name = "tb_order_product", schema = "dsdeliver",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
   private Set<Product> products = new HashSet<>();
