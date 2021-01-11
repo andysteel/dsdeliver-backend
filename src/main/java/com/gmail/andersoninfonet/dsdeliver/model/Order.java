@@ -176,6 +176,17 @@ public class Order implements Serializable {
   }
 
   /**
+   * <p>getTotal.</p>
+   *
+   * @return a {@link java.lang.Double} object.
+   */
+  public Double getTotal() {
+    return getProducts().stream()
+                        .map(p -> p.getPrice())
+                        .reduce(0.0, (total, value) -> total + value );
+  }
+
+  /**
    * <p>Getter for the field <code>products</code>.</p>
    *
    * @return a {@link java.util.Set} object.

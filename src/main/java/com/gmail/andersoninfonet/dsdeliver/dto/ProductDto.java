@@ -8,7 +8,7 @@ import java.io.Serializable;
  *
  * @author andysteel
  * @version 1.0.0
- * @version 1.0.0
+ * @since 1.0.0
  */
 public class ProductDto implements Serializable {
 

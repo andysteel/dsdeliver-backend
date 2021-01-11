@@ -26,6 +26,7 @@ public class OrderDto implements Serializable {
   private Double longitude;
   private Instant timestamp;
   private OrderStatus status;
+  private Double total;
   private List<ProductDto> products = new ArrayList<>();
 
   /**
@@ -43,15 +44,17 @@ public class OrderDto implements Serializable {
    * @param longitude a {@link java.lang.Double} object.
    * @param timestamp a {@link java.time.Instant} object.
    * @param status a {@link com.gmail.andersoninfonet.dsdeliver.model.OrderStatus} object.
+   * @param total a {@link java.lang.Double} object.
    */
   public OrderDto(Long id, String address, Double latitude,
-      Double longitude, Instant timestamp, OrderStatus status) {
+      Double longitude, Instant timestamp, OrderStatus status, Double total) {
     this.id = id;
     this.address = address;
     this.latitude = latitude;
     this.longitude = longitude;
     this.timestamp = timestamp;
     this.status = status;
+    this.total = total;
   }
 
   /**
@@ -66,6 +69,7 @@ public class OrderDto implements Serializable {
     this.longitude = entity.getLongitude();
     this.timestamp = entity.getTimestamp();
     this.status = entity.getStatus();
+    this.total = entity.getTotal();
     this.products = entity.getProducts().stream()
                     .map(ProductDto::new).collect(Collectors.toList());
   }
@@ -176,6 +180,24 @@ public class OrderDto implements Serializable {
    */
   public void setStatus(OrderStatus status) {
     this.status = status;
+  }
+
+  /**
+   * <p>Getter for the field <code>total</code>.</p>
+   *
+   * @return a {@link java.lang.Double} object.
+   */
+  public Double getTotal() {
+    return total;
+  }
+
+  /**
+   * <p>Setter for the field <code>total</code>.</p>
+   *
+   * @param total a {@link java.lang.Double} object.
+   */
+  public void setTotal(Double total) {
+    this.total = total;
   }
 
   /**
